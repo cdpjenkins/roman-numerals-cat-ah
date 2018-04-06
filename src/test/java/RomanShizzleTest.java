@@ -17,7 +17,11 @@ public class RomanShizzleTest {
             "8,VIII",
             "9,IX",
             "10,X",
-            "40,XL"
+            "40,XL",
+            "41,XLI",
+            "50,L",
+            "90,XC",
+            "100,C"
     })
     public void number_maps_to_roman_numeral(int decimal, String roman) {
         // WHEN
