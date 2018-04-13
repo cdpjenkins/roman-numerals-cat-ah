@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -22,7 +21,8 @@ public class RomanShizzleTest {
             "41,XLI",
             "50,L",
             "90,XC",
-            "100,C"
+            "100,C",
+            "3000,MMM",
     })
     public void number_maps_to_roman_numeral(int decimal, String roman) {
         // WHEN
