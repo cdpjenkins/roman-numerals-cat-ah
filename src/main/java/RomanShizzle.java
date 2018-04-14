@@ -1,38 +1,51 @@
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RomanShizzle {
+
+    static class Result {
+        private int number;
+        private String letters;
+
+        public Result(int number, String letters) {
+            this.number = number;
+            this.letters = letters;
+        }
+    }
+
     public static String of(int number) {
-        StringBuffer result = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
-        List<String> things = Arrays.asList("I", "V", "X", "L", "C", "D", "M", "?", "?");
-        Collections.reverse(things);
+        List<RomanNumeral> romanNumerals = Stream.of(RomanNumeral.values())
+                .sorted(Comparator.comparing(RomanNumeral::getValue).reversed())
+                .collect(Collectors.toList());
 
-        int multiplier = 1000;
-        for (int i = 0; i < things.size() - 2 ; i += 2) {
-            number = solveBaseNumbers(number, result, things.get(i + 2), things.get(i + 1), things.get(i), multiplier);
-            multiplier /= 10;
+        for (RomanNumeral romanNumeral : romanNumerals) {
+            Result result = consumeNumber(number, "", romanNumeral);
+            number = result.number;
+            builder.append(result.letters);
+
+            // no need to loop if we're done consuming the numbers
+            if (number == 0) {
+                break;
+            }
         }
 
-        return result.toString();
+        return builder.toString();
     }
 
-    private static int solveBaseNumbers(int number, StringBuffer result, String i, String v, String x, int multiplier) {
-
-        number = consumeNumber(number, result, 9 * multiplier, i + x);
-        number = consumeNumber(number, result, 5 * multiplier, v);
-        number = consumeNumber(number, result, 4 * multiplier, i + v);
-        number = consumeNumber(number, result, 1 * multiplier, i);
-
-        return number;
-    }
-
-    private static int consumeNumber(int number, StringBuffer result, int i, String romanString) {
-        while (number >= i) {
-            result.append(romanString);
-            number -= i;
+    private static Result consumeNumber(int number, String letters, RomanNumeral romanNumeral) {
+        if (number >= romanNumeral.getValue()) {
+            return consumeNumber(number - romanNumeral.getValue(),
+                    letters + romanNumeral.toString(), romanNumeral);
+        } else if (romanNumeral.hasNegativeModifier()
+                && number >= romanNumeral.lesserValue()) {
+            return consumeNumber(number - romanNumeral.lesserValue(),
+                    letters + romanNumeral.lesserString(), romanNumeral);
         }
-        return number;
+
+        return new Result(number, letters);
     }
 }
