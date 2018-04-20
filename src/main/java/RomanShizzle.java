@@ -9,11 +9,10 @@ public class RomanShizzle {
         List<String> things = Arrays.asList("I", "V", "X", "L", "C", "D", "M", "?", "?");
         Collections.reverse(things);
 
-        int multiplier = 1000;
-        for (int i = 0; i < things.size() - 2 ; i += 2) {
-            number = solveBaseNumbers(number, result, things.get(i + 2), things.get(i + 1), things.get(i), multiplier);
-            multiplier /= 10;
-        }
+        number = solveBaseNumbers(number, result, things.get(2), things.get(1), things.get(0), 1000);
+        number = solveBaseNumbers(number, result, things.get(4), things.get(3), things.get(2), 100);
+        number = solveBaseNumbers(number, result, things.get(6), things.get(5), things.get(4), 10);
+        solveBaseNumbers(number, result, things.get(8), things.get(7), things.get(6), 1);
 
         return result.toString();
     }
