@@ -3,16 +3,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class RomanShizzle {
+    
+    public static final List<String> THINGS =Arrays.asList("I", "V", "X", "L", "C", "D", "M", "?", "?");
+    static {
+        Collections.reverse(THINGS);
+    }
+
     public static String of(int number) {
         StringBuffer result = new StringBuffer();
 
-        List<String> things = Arrays.asList("I", "V", "X", "L", "C", "D", "M", "?", "?");
-        Collections.reverse(things);
-
-        number = solveBaseNumbers(number, result, things.get(2), things.get(1), things.get(0), 1000);
-        number = solveBaseNumbers(number, result, things.get(4), things.get(3), things.get(2), 100);
-        number = solveBaseNumbers(number, result, things.get(6), things.get(5), things.get(4), 10);
-        solveBaseNumbers(number, result, things.get(8), things.get(7), things.get(6), 1);
+        number = solveBaseNumbers(number, result, THINGS.get(2), THINGS.get(1), THINGS.get(0), 1000);
+        number = solveBaseNumbers(number, result, THINGS.get(4), THINGS.get(3), THINGS.get(2), 100);
+        number = solveBaseNumbers(number, result, THINGS.get(6), THINGS.get(5), THINGS.get(4), 10);
+        solveBaseNumbers(number, result, THINGS.get(8), THINGS.get(7), THINGS.get(6), 1);
 
         return result.toString();
     }
