@@ -26,7 +26,7 @@ public class RomanShizzleTest {
     })
     public void number_maps_to_roman_numeral(int decimal, String roman) {
         // WHEN
-        String result = RomanShizzle.of(decimal);
+        String result = new RomanShizzle().of(decimal);
 
         // THEN
         assertEquals(roman, result);
