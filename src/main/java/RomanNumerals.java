@@ -7,4 +7,12 @@ public class RomanNumerals {
     {
         Collections.reverse(THINGS);
     }
+
+    public int getMultiplier(int offset) {
+        int result =   1;
+        for (int index = 8 - offset; index > 0; index-=2) {
+            result*=10;
+        }
+        return result;
+    }
 }
