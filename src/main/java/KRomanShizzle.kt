@@ -31,4 +31,31 @@ object KRomanShizzle {
             else -> Pair(number, letters)
         }
     }
+
+    fun of(romanNumeral: String): Int {
+        var sum = 0
+        var previousNumber = 0
+
+        for (numeral in romanNumeral) {
+            val currentNumber = when (numeral) {
+                'M' -> 1000
+                'D' -> 500
+                'C' -> 100
+                'L' -> 50
+                'X' -> 10
+                'V' -> 5
+                else -> 1
+            }
+
+            if (currentNumber > previousNumber) {
+                sum -= 2 * previousNumber
+            }
+
+            sum += currentNumber
+
+            previousNumber = currentNumber
+
+        }
+        return sum
+    }
 }
