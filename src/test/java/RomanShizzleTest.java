@@ -31,4 +31,21 @@ public class RomanShizzleTest {
         // THEN
         assertEquals(roman, result);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "I,1",
+            "II,2",
+            "III,3",
+            "IV,4",
+            "V,5"
+
+    })
+    public void roman_numeral_maps_to_number(String roman, int number) {
+        // WHEN
+        int result = new RomanShizzle().toNumber(roman);
+
+        // THEN
+        assertEquals(number, result);
+    }
 }

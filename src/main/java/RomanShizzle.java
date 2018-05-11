@@ -35,4 +35,31 @@ public class RomanShizzle {
         }
         return romanSum;
     }
+
+    public int toNumber(String roman) {
+
+        int sum = 0;
+        for (int i = 0; i < roman.length(); i++) {
+            switch (roman.charAt(i)) {
+                case 'I':
+                    sum += getValueInContext(roman, i);
+                    break;
+                case 'V':
+                    sum += 5;
+                    break;
+            }
+        }
+
+        return sum;
+    }
+
+    private int getValueInContext(String roman, int i) {
+        int sum1;
+        if (roman.length() > i+1 && roman.charAt(i+1) == 'V') {
+            sum1 = -1;
+        } else {
+            sum1 = 1;
+        }
+        return sum1;
+    }
 }
