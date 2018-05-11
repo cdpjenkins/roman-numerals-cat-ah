@@ -5,7 +5,6 @@ public class RomanShizzle {
     public final RomanNumerals romanNumerals = new RomanNumerals();
 
 
-
     public String of(int number) {
         StringBuffer result = new StringBuffer();
 
@@ -20,19 +19,20 @@ public class RomanShizzle {
     private int solveBaseNumbers(RomanSum romanSum, int i) {
 
         int multiplier = romanNumerals.getMultiplier(i);
-        romanSum.setNumber(consumeNumber(romanSum.getNumber(), romanSum.getResult(), 9 * multiplier, romanNumerals.THINGS.get(i) + romanNumerals.THINGS.get(i - 2)));
-        romanSum.setNumber(consumeNumber(romanSum.getNumber(), romanSum.getResult(), 5 * multiplier, romanNumerals.THINGS.get(i - 1)));
-        romanSum.setNumber(consumeNumber(romanSum.getNumber(), romanSum.getResult(), 4 * multiplier, romanNumerals.THINGS.get(i) + romanNumerals.THINGS.get(i - 1)));
-        romanSum.setNumber(consumeNumber(romanSum.getNumber(), romanSum.getResult(), 1 * multiplier, romanNumerals.THINGS.get(i)));
+        romanSum = consumeNumber(romanSum, 9 * multiplier, romanNumerals.getRomanStringNine(i));
+        romanSum = consumeNumber(romanSum, 5 * multiplier, romanNumerals.getRomanStringFive(i));
+        romanSum = consumeNumber(romanSum, 4 * multiplier, romanNumerals.getRomanStringFour(i));
+        romanSum = consumeNumber(romanSum, 1 * multiplier, romanNumerals.getRomanStringOne(i));
 
         return romanSum.getNumber();
     }
 
-    private int consumeNumber(int number, StringBuffer result, int i, String romanString) {
-        while (number >= i) {
-            result.append(romanString);
-            number -= i;
+
+    private RomanSum consumeNumber(RomanSum romanSum, int i, String romanString) {
+        while (romanSum.getNumber() >= i) {
+            romanSum.getResult().append(romanString);
+            romanSum.setNumber(romanSum.getNumber() - i);
         }
-        return number;
+        return romanSum;
     }
 }

@@ -15,4 +15,21 @@ public class RomanNumerals {
         }
         return result;
     }
+
+
+    public String getRomanStringOne(int i) {
+        return THINGS.get(i);
+    }
+
+    public String getRomanStringFour(int i) {
+        return THINGS.get(i) + THINGS.get(i - 1);
+    }
+
+    public String getRomanStringFive(int i) {
+        return THINGS.get(i - 1);
+    }
+
+    public String getRomanStringNine(int i) {
+        return THINGS.get(i) + THINGS.get(i - 2);
+    }
 }
